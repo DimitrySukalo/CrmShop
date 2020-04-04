@@ -53,7 +53,23 @@ namespace ModelUI
             {
                 crm.Customers.Add(addingClientForm.Customer);
                 crm.SaveChanges();
-                MessageBox.Show("Клиент был добавлен!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                GetMessageInfo("Клиент");
+            }
+        }
+
+        private static void GetMessageInfo(string item)
+        {
+            MessageBox.Show($"{item} был добавлен!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void AddToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var addingSeller = new AddSeller();
+            if(addingSeller.ShowDialog() == DialogResult.OK)
+            {
+                crm.Sellers.Add(addingSeller.Seller);
+                crm.SaveChanges();
+                GetMessageInfo("Продавец");
             }
         }
     }
