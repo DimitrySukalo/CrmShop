@@ -10,7 +10,6 @@ namespace CrmModel.Model
         public decimal Price { get; set; }
         public DateTime Created { get; set; }
 
-        public virtual ICollection<Check> Checks { get; set; }
         public virtual ICollection<Sell> Sells { get; set; }
 
         public override string ToString()
