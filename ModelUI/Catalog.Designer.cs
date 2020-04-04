@@ -37,14 +37,14 @@
             this.CatalogDataGrig.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CatalogDataGrig.Location = new System.Drawing.Point(13, 13);
             this.CatalogDataGrig.Name = "CatalogDataGrig";
-            this.CatalogDataGrig.Size = new System.Drawing.Size(819, 369);
+            this.CatalogDataGrig.Size = new System.Drawing.Size(819, 413);
             this.CatalogDataGrig.TabIndex = 0;
             // 
             // Catalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 394);
+            this.ClientSize = new System.Drawing.Size(844, 436);
             this.Controls.Add(this.CatalogDataGrig);
             this.Name = "Catalog";
             this.Text = "Catalog";

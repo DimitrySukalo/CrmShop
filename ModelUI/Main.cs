@@ -46,5 +46,15 @@ namespace ModelUI
             catalogForm.Show();
         }
 
+        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var addingClientForm = new AddClient();
+            if(addingClientForm.ShowDialog() == DialogResult.OK)
+            {
+                crm.Customers.Add(addingClientForm.Customer);
+                crm.SaveChanges();
+                MessageBox.Show("Клиент был добавлен!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
