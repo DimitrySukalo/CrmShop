@@ -105,8 +105,9 @@
             // AddToolStripMenuItem2
             // 
             this.AddToolStripMenuItem2.Name = "AddToolStripMenuItem2";
-            this.AddToolStripMenuItem2.Size = new System.Drawing.Size(126, 22);
+            this.AddToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.AddToolStripMenuItem2.Text = "Добавить";
+            this.AddToolStripMenuItem2.Click += new System.EventHandler(this.AddToolStripMenuItem2_Click);
             // 
             // CheckToolStripMenuItem
             // 

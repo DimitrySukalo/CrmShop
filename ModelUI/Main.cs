@@ -72,5 +72,16 @@ namespace ModelUI
                 GetMessageInfo("Продавец");
             }
         }
+
+        private void AddToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var addingProduct = new AddProduct();
+            if(addingProduct.ShowDialog() == DialogResult.OK)
+            {
+                crm.Products.Add(addingProduct.Product);
+                crm.SaveChanges();
+                GetMessageInfo("Продукт");
+            }
+        }
     }
 }
