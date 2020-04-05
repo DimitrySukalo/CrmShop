@@ -24,17 +24,19 @@ namespace ModelUI
         public AddSeller(Seller seller) : this()
         {
             Seller = seller ?? new Seller();
+            SellerNameTextBox.Text = seller.Name;
+            SellerSurname.Text = seller.Surname;
+            SellerLastname.Text = seller.Lastname;
+            SellerAgeNumeric.Value = seller.Age;
         }
 
         private void AddSellerButton_Click(object sender, EventArgs e)
         {
-            Seller = Seller ?? new Seller()
-            {
-                Name = SellerNameTextBox.Text,
-                Surname = SellerSurname.Text,
-                Lastname = SellerLastname.Text,
-                Age = Convert.ToInt32(SellerAgeNumeric.Value)
-            };
+            Seller = Seller ?? new Seller();
+            Seller.Name = SellerNameTextBox.Text;
+            Seller.Surname = SellerSurname.Text;
+            Seller.Lastname = SellerLastname.Text;
+            Seller.Age = Convert.ToInt32(SellerAgeNumeric.Value);
         }
 
         private void GetCorrectText(TextBox textBox)

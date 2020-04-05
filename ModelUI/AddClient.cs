@@ -25,16 +25,17 @@ namespace ModelUI
         public AddClient(Customer customer) : this()
         {
             Customer = customer ?? new Customer();
+            ClientNameTextBox.Text = customer.Name;
+            SurnameClientTextBox.Text = customer.Surname;
+            AgeClientNumeric.Value = customer.Age;
         }
 
         private void AddCustomer_Click(object sender, EventArgs e)
         {
-            Customer = Customer ?? new Customer()
-            {
-                Name = ClientNameTextBox.Text,
-                Surname = SurnameClientTextBox.Text,
-                Age = Convert.ToInt32(AgeClientNumeric.Value)
-            };
+            Customer = Customer ?? new Customer();
+            Customer.Name = ClientNameTextBox.Text;
+            Customer.Surname = SurnameClientTextBox.Text;
+            Customer.Age = Convert.ToInt32(AgeClientNumeric.Value);
         }
 
         private void ClientNameTextBox_TextChanged(object sender, EventArgs e)

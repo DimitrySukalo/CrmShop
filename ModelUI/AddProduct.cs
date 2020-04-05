@@ -24,16 +24,17 @@ namespace ModelUI
         public AddProduct(Product product) : this()
         {
             Product = product ?? new Product();
+            ProductNameTextBox.Text = product.Name;
+            ProductPriceNumberic.Value = product.Price;
+            DateOfCreatingProduct.Value = product.Created;
         }
 
         private void AddProductButton_Click(object sender, EventArgs e)
         {
-            Product = Product ?? new Product()
-            {
-                Name = ProductNameTextBox.Text,
-                Price = ProductPriceNumberic.Value,
-                Created = DateOfCreatingProduct.Value
-            };
+            Product = Product ?? new Product();
+            Product.Name = ProductNameTextBox.Text;
+            Product.Price = ProductPriceNumberic.Value;
+            Product.Created = DateOfCreatingProduct.Value;
         }
 
         private void ProductNameTextBox_TextChanged(object sender, EventArgs e)
