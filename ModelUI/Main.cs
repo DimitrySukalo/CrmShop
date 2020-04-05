@@ -15,11 +15,15 @@ namespace ModelUI
     public partial class Main : Form
     {
         CrmContext crm;
+        public Cart Cart { get; set; }
+        public Customer Customer { get; set; }
 
         public Main()
         {
             InitializeComponent();
             crm = new CrmContext();
+            Customer = new Customer();
+            Cart = new Cart();
         }
 
         private void ClientToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,6 +85,62 @@ namespace ModelUI
                 crm.Products.Add(addingProduct.Product);
                 crm.SaveChanges();
                 GetMessageInfo("Продукт");
+            }
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                ProductListForChoose.Invoke((Action)delegate { ProductListForChoose.Items.AddRange(crm.Products.ToArray()); });
+            });
+        }
+
+        private void ProductListForChoose_DoubleClick(object sender, EventArgs e)
+        {
+            if (Customer.Name == null)
+            {
+                MessageBox.Show("Авторизуйтесь пожалуйста!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                if (ProductListForChoose.SelectedItem is Product product)
+                {
+                    Cart.Add(product);
+                    ProductListForSale.Items.Add(product);
+                    UpdateLists();
+                }
+            }
+        }
+
+        private void UpdateLists()
+        {
+            ProductListForSale.Invoke((Action)delegate
+            {
+                ProductListForSale.Items.Clear();
+                ProductListForSale.Items.AddRange(Cart.Products.ToArray());
+                SumPayLabel.Text = Cart.Price.ToString();
+            });
+        }
+
+        private void PayButton_Click(object sender, EventArgs e)
+        {
+            CashDesk cashDesk = new CashDesk(10, crm.Sellers.First(), crm);
+            cashDesk.Enqueue(Cart);
+            cashDesk.ServeCustomer();
+            MessageBox.Show("Покупка проведена успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void LoginLinkLabel_Click(object sender, EventArgs e)
+        {
+            var loginForm = new LoginForm(crm);
+            if(loginForm.ShowDialog() == DialogResult.OK)
+            {
+                crm.SaveChanges();
+                GetMessageInfo("Покупатель");
+                LoginLinkLabel.Text = $"Добро пожаловать, {loginForm.Customer}";
+                Customer = loginForm.Customer;
+                Cart = new Cart(Customer);
             }
         }
     }
