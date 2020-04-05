@@ -51,6 +51,7 @@ namespace CrmModel.Model
             var currentCart = Queue.Peek();
             var check = MakeCheck(currentCart);
             Crm.Checks.Add(check);
+            Crm.SaveChanges();
             Queue.Dequeue();
         }
 

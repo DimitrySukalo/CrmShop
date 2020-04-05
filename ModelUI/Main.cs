@@ -125,10 +125,17 @@ namespace ModelUI
 
         private void PayButton_Click(object sender, EventArgs e)
         {
-            CashDesk cashDesk = new CashDesk(10, crm.Sellers.First(), crm);
-            cashDesk.Enqueue(Cart);
-            cashDesk.ServeCustomer();
-            MessageBox.Show("Покупка проведена успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (Customer.Name == null)
+            {
+                MessageBox.Show("Авторизуйтесь пожалуйста!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                CashDesk cashDesk = new CashDesk(10, crm.Sellers.First(), crm);
+                cashDesk.Enqueue(Cart);
+                cashDesk.ServeCustomer();
+                MessageBox.Show("Покупка проведена успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void LoginLinkLabel_Click(object sender, EventArgs e)
@@ -141,6 +148,17 @@ namespace ModelUI
                 LoginLinkLabel.Text = $"Добро пожаловать, {loginForm.Customer}";
                 Customer = loginForm.Customer;
                 Cart = new Cart(Customer);
+            }
+        }
+
+        private void ProductListForSale_DoubleClick(object sender, EventArgs e)
+        {
+            if(ProductListForSale.SelectedItem is Product product)
+            {
+                Cart.Products.Remove(product);
+                Cart.Price -= product.Price; 
+                ProductListForSale.Items.Remove(product);
+                UpdateLists();
             }
         }
     }

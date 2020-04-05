@@ -149,6 +149,7 @@
             this.ProductListForSale.Name = "ProductListForSale";
             this.ProductListForSale.Size = new System.Drawing.Size(252, 394);
             this.ProductListForSale.TabIndex = 3;
+            this.ProductListForSale.DoubleClick += new System.EventHandler(this.ProductListForSale_DoubleClick);
             // 
             // label2
             // 
