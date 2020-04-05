@@ -12,6 +12,7 @@ namespace CrmModel.Model
         public int GoneCustomer { get; set; }
         public Seller Seller { get; set; }
         public CrmContext Crm { get; set; }
+        public bool IsModel { get; set; } = false;
 
         public CashDesk(int maxLenghtQueue, Seller seller, CrmContext crm)
         {
@@ -48,25 +49,49 @@ namespace CrmModel.Model
 
         public void ServeCustomer()
         {
-            var currentCart = Queue.Peek();
-            var check = MakeCheck(currentCart);
-            Crm.Checks.Add(check);
-            Crm.SaveChanges();
-            Queue.Dequeue();
+            if (!IsModel)
+            {
+                var currentCart = Queue.Peek();
+                var check = MakeCheck(currentCart);
+                Crm.Checks.Add(check);
+                Crm.SaveChanges();
+                Queue.Dequeue();
+            }
+            else
+            {
+                var currentCart = Queue.Peek();
+                var check = MakeCheck(currentCart);
+                Queue.Dequeue();
+            }
         }
 
         public Check MakeCheck(Cart cart)
         {
-            Check check = new Check()
+            if (!IsModel)
             {
-                Created = DateTime.Now,
-                Seller = Seller,
-                Customer = cart.Customer,
-                CustomerId = cart.Customer.CustomerId,
-                SellerId = Seller.SellerId,
-            };
+                Check check = new Check()
+                {
+                    Created = DateTime.Now,
+                    Seller = Seller,
+                    Customer = cart.Customer,
+                    CustomerId = cart.Customer.CustomerId,
+                    SellerId = Seller.SellerId,
+                };
 
-            return check;
+                return check;
+            }
+
+            else
+            {
+                Check check = new Check()
+                {
+                    Created = DateTime.Now,
+                    Seller = Seller,
+                    Customer = cart.Customer
+                };
+
+                return check;
+            }
         }
     }
 }
