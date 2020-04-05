@@ -61,8 +61,8 @@ namespace CrmModel.Model
                 Created = DateTime.Now,
                 Seller = Seller,
                 Customer = cart.Customer,
+                CustomerId = cart.Customer.CustomerId,
                 SellerId = Seller.SellerId,
-                CustomerId = cart.Customer.CustomerId
             };
 
             return check;
