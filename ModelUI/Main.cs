@@ -85,10 +85,17 @@ namespace ModelUI
                 crm.Products.Add(addingProduct.Product);
                 crm.SaveChanges();
                 GetMessageInfo("Продукт");
+                ProductListForChoose.Items.Clear();
+                GetProductForChoose();
             }
         }
 
         private void Main_Load(object sender, EventArgs e)
+        {
+            GetProductForChoose();
+        }
+
+        private void GetProductForChoose()
         {
             Task.Run(() =>
             {
